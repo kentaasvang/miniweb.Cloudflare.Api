@@ -15,18 +15,18 @@ public class ApiController : Controller
   }
 
   [HttpGet]
-  public async Task<IActionResult> GetAllRecords() => Ok(await _client.GetAllDnsRecordsAsync());
-
-  [HttpPost]
-  public string AddRecord()
+  public async Task<IActionResult> GetAllRecords()
   {
-    return "add";
+    _logger.LogInformation("Getting all DNS-records");
+    return Ok(await _client.GetAllDnsRecordsAsync());
   }
 
+  [HttpPost]
+  public string AddRecord() => throw new NotImplementedException();
+
   [HttpPatch]
-  public string UpdateRecord()
-    => "update";
+  public string UpdateRecord() => throw new NotImplementedException();
 
   [HttpDelete]
-  public string DeleteRecord() => "delete";
+  public string DeleteRecord() => throw new NotImplementedException();
 }

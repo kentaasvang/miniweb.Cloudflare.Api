@@ -8,6 +8,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCloudflareClient(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
+builder.Host.UseSystemd();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,7 +31,6 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
-
 
 app.UseAuthorization();
 
