@@ -5,10 +5,12 @@ It's not a good idea to expose these endpoints to the internet. It's made to be 
 
 ## ⚡ Getting Started
 Configure user-secrets with e-mail and global api-key from cloudflare, then you should be good to go.
+You'll also need to add database connection string to user-secrets
 ```bash
 dotnet user-secrets init
 dotnet user-secrets set "Cloudflare:Email" "your@email.com"
 dotnet user-secrets set "Cloudflare:ApiKey" "your-api-key"
+dotnet user-secrets set "Database:ConnectionString" "your-connectionString"
 ```
 
 ## 🔧 Building and Running on Ubuntu
