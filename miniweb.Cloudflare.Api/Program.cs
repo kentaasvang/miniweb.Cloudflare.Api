@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using miniweb.Cloudflare.Api;
+using miniweb.Cloudflare.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCloudflareClient(builder.Configuration);
 builder.Services.AddSwaggerGen();
+builder.Services.AddDatabase(builder.Configuration);
+
 
 builder.Host.UseSystemd();
 

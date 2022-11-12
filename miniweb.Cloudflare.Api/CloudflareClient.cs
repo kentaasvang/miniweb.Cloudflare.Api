@@ -1,10 +1,9 @@
-using CloudFlare.Client.Api.Authentication;
 using CloudFlare.Client.Api.Zones.DnsRecord;
 using Microsoft.Extensions.Options;
+using CFClient = CloudFlare.Client.CloudFlareClient;
 
 namespace miniweb.Cloudflare.Api;
 
-using CFClient = CloudFlare.Client.CloudFlareClient;
 
 public interface ICloudflareClient
 {
@@ -14,7 +13,7 @@ public interface ICloudflareClient
 public class CloudflareClient : ICloudflareClient
 {
   private readonly ILogger<CFClient> _logger;
-  private CFClient _client;
+  private readonly CFClient _client;
 
   public CloudflareClient(ILogger<CFClient> logger, IOptions<CloudflareAuthOptions> options)
   {
@@ -25,12 +24,13 @@ public class CloudflareClient : ICloudflareClient
 
   public async Task<IEnumerable<DnsRecord>> GetAllDnsRecordsAsync()
   {
-    var zones = await _client.Zones.GetAsync();
     var dnsRecords = new List<DnsRecord>();
+    var zones = await _client.Zones.GetAsync();
 
     foreach (var zone in zones.Result)
     {
       var dns = await _client.Zones.DnsRecords.GetAsync(zone.Id);
+
       if (dns.Success)
         dnsRecords.AddRange(dns.Result);
       else

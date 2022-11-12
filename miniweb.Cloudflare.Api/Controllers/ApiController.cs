@@ -20,6 +20,9 @@ public class ApiController : Controller
     _logger.LogInformation("Getting all DNS-records");
     return Ok(await _client.GetAllDnsRecordsAsync());
   }
+  
+  // TODO: set dynamically
+  // private const string ZoneId = "f6b082a0e6ee2c275672de9d49fa0a3f";
 
   [HttpPost]
   public string AddRecord() => throw new NotImplementedException();
