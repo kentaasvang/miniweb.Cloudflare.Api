@@ -1,10 +1,11 @@
+using miniweb.Cloudflare.Api;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-// Inject Swagger
+builder.Services.AddCloudflareClient(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
