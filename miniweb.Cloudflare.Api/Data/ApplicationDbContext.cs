@@ -5,8 +5,8 @@ namespace miniweb.Cloudflare.Api.Data;
 
 public class ApplicationDbContext : DbContext
 {
-  public DbSet<Zone>      Zones      => Set<Zone>();
-  public DbSet<DnsRecord> DnsRecords => Set<DnsRecord>();
+  public DbSet<ZoneEntity>      Zones      => Set<ZoneEntity>();
+  public DbSet<DnsRecordEntity> DnsRecords => Set<DnsRecordEntity>();
 
   public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : base(options)
