@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using miniweb.Cloudflare.Api.Data;
+using miniweb.Cloudflare.Api.Services;
 
 namespace miniweb.Cloudflare.Api;
 
-public static class Extensions
+public static class DependencyInjectionExtensions
 {
   public static IServiceCollection AddCloudflareClient(this IServiceCollection serviceCollection, IConfiguration config)
   {
@@ -23,4 +24,12 @@ public static class Extensions
 
     return serviceCollection;
   }
+  
+  public static IServiceCollection AddServices(this IServiceCollection serviceCollection)
+  {
+    serviceCollection.AddTransient<IDnsRecordService, DnsRecordService>();
+    return serviceCollection;
+  }
+  
+  
 }

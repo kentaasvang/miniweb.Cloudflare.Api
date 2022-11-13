@@ -1,3 +1,4 @@
+using CloudFlare.Client.Api.Result;
 using CloudFlare.Client.Api.Zones.DnsRecord;
 using CloudFlare.Client.Enumerators;
 using Microsoft.Extensions.Options;
@@ -8,7 +9,8 @@ namespace miniweb.Cloudflare.Api;
 
 public interface ICloudflareClient
 {
-  Task<bool>                   InsertDnsRecordAsync(string zoneId, DnsRecordEntity record);
+  Task<CloudFlareResult<DnsRecord>> InsertDnsRecordAsync(string zoneId, DnsRecordEntity record);
+  Task<bool>                        DeleteDnsRecordAsync(string zoneId, string recordId);
 }
 
 public class CloudflareClient : ICloudflareClient
@@ -23,7 +25,7 @@ public class CloudflareClient : ICloudflareClient
     _client = new CFClient(options1.Email, options1.ApiKey);
   }
 
-  public async Task<bool> InsertDnsRecordAsync(string zoneId, DnsRecordEntity record)
+  public async Task<CloudFlareResult<DnsRecord>> InsertDnsRecordAsync(string zoneId, DnsRecordEntity record)
   {
     var result = await _client.Zones.DnsRecords.AddAsync(zoneId, new NewDnsRecord
     {
@@ -33,6 +35,12 @@ public class CloudflareClient : ICloudflareClient
       Proxied = false
     });
 
+    return result;
+  }
+
+  public async Task<bool> DeleteDnsRecordAsync(string zoneId, string recordId)
+  {
+    var result = await _client.Zones.DnsRecords.DeleteAsync(zoneId, recordId);
     return result.Success;
   }
 }

@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCloudflareClient(builder.Configuration);
 builder.Services.AddSwaggerGen();
 builder.Services.AddDatabase(builder.Configuration);
-builder.Services.AddTransient<IDnsRecordService, DnsRecordService>();
+builder.Services.AddServices();
 
 builder.Host.UseSystemd();
 

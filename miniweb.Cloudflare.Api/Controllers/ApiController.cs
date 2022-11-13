@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using miniweb.Cloudflare.Api.Entities;
+using miniweb.Cloudflare.Api.Dtos;
 using miniweb.Cloudflare.Api.Services;
 
 namespace miniweb.Cloudflare.Api.Controllers;
@@ -8,12 +8,10 @@ namespace miniweb.Cloudflare.Api.Controllers;
 public class ApiController : Controller
 {
   private readonly IDnsRecordService _dnsRecordService;
-  private readonly ICloudflareClient _client;
 
-  public ApiController(IDnsRecordService dnsRecordService, ICloudflareClient client)
+  public ApiController(IDnsRecordService dnsRecordService)
   {
     _dnsRecordService = dnsRecordService;
-    _client = client;
   }
 
   [HttpGet]
@@ -35,7 +33,7 @@ public class ApiController : Controller
   }
 
   [HttpPost]
-  public async Task<IActionResult> AddRecord([FromBody] DnsRecordEntity dnsRecord)
+  public async Task<IActionResult> AddRecord([FromBody] DnsRecordDto dnsRecord)
   {
     var result = await _dnsRecordService.CreateAsync(dnsRecord);
     
@@ -45,7 +43,7 @@ public class ApiController : Controller
   }
 
   [HttpPatch]
-  public async Task<IActionResult> UpdateRecord([FromBody] DnsRecordEntity dnsRecord)
+  public async Task<IActionResult> UpdateRecord([FromBody] DnsRecordDto dnsRecord)
   {
     var result = await _dnsRecordService.UpdateAsync(dnsRecord);
     return result.Succeeded
@@ -54,7 +52,7 @@ public class ApiController : Controller
   }
 
   [HttpDelete]
-  public async Task<IActionResult> DeleteRecord([FromBody] DnsRecordEntity dnsRecord)
+  public async Task<IActionResult> DeleteRecord([FromBody] DnsRecordDto dnsRecord)
   {
     var result = await _dnsRecordService.DeleteAsync(dnsRecord);
     return result.Succeeded
